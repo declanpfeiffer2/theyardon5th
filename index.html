@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Yard On 5th — Lynchburg, VA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{--e:#c85a14;--el:#e8722a;--ed:#8a3a08;--cr:#ede4d3;--bg:#080707;--bg2:#0d0b0a;--border:rgba(237,228,211,0.07);--muted:rgba(237,228,211,0.38)}
+body{background:var(--bg);color:var(--cr);font-family:'Inter',sans-serif;overflow-x:hidden;font-size:15px;line-height:1.6;font-weight:300}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+
+/* ── CUSTOM CURSOR ── */
+.cursor{position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
+.cursor-dot{width:6px;height:6px;background:#fff;border-radius:50%;position:fixed;transform:translate(-50%,-50%);transition:transform 0.1s;top:0;left:0}
+.cursor-ring{width:36px;height:36px;border:1px solid rgba(255,255,255,0.4);border-radius:50%;position:fixed;transform:translate(-50%,-50%);transition:top 0.12s ease,left 0.12s ease,width 0.3s,height 0.3s,border-color 0.3s;top:0;left:0}
+body:has(a:hover) .cursor-ring,body:has(button:hover) .cursor-ring{width:56px;height:56px;border-color:var(--el)}
+
+/* ── PAGE LOADER ── */
+#loader{position:fixed;inset:0;background:var(--bg);z-index:9000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;transition:opacity 0.8s ease,visibility 0.8s ease}
+#loader.hidden{opacity:0;visibility:hidden}
+.loader-brand{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:var(--el);animation:loaderPulse 1.5s ease-in-out infinite}
+.loader-bar-wrap{width:160px;height:1px;background:rgba(237,228,211,0.1)}
+.loader-bar{height:1px;background:var(--e);width:0;animation:loaderFill 1.8s ease forwards}
+@keyframes loaderFill{to{width:100%}}
+@keyframes loaderPulse{0%,100%{opacity:0.4}50%{opacity:1}}
+
+/* ── EMBER PARTICLES ── */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;border-radius:50%;background:var(--e);animation:floatUp linear infinite;opacity:0}
+@keyframes floatUp{
+  0%{transform:translateY(100vh) translateX(0) scale(1);opacity:0}
+  10%{opacity:0.6}
+  90%{opacity:0.1}
+  100%{transform:translateY(-10vh) translateX(var(--drift)) scale(0.2);opacity:0}
+}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;width:100%;z-index:200;transition:background 0.6s,border 0.6s,padding 0.4s}
+nav.scrolled{background:rgba(8,7,7,0.97);backdrop-filter:blur(28px);border-bottom:1px solid var(--border)}
+.nav-wrap{max-width:1280px;margin:0 auto;padding:1.6rem 3rem;display:flex;justify-content:space-between;align-items:center;transition:padding 0.4s}
+nav.scrolled .nav-wrap{padding:1rem 3rem}
+.brand{display:flex;flex-direction:column;align-items:flex-start}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--el);transition:letter-spacing 0.4s}
+nav.scrolled .brand-name{letter-spacing:0.18em}
+.brand-loc{font-size:0.55rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.nav-links{display:flex;gap:3rem;align-items:center}
+.nav-links a{font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--muted);transition:color 0.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--e);transition:width 0.35s ease}
+.nav-links a:hover{color:var(--cr)}
+.nav-links a:hover::after{width:100%}
+.nav-res{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;border:1px solid rgba(200,90,20,0.5);color:var(--el);padding:0.7rem 1.6rem;transition:all 0.4s;position:relative;overflow:hidden}
+.nav-res::before{content:'';position:absolute;inset:0;background:var(--e);transform:translateX(-101%);transition:transform 0.4s ease}
+.nav-res:hover{color:#fff;border-color:var(--e)}
+.nav-res:hover::before{transform:translateX(0)}
+.nav-res span{position:relative;z-index:1}
+
+/* ── HERO ── */
+.hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070') center/cover no-repeat;transform:scale(1.08);transition:transform 10s cubic-bezier(0.25,0.46,0.45,0.94)}
+.hero-bg.loaded{transform:scale(1)}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,7,7,0.25) 0%,rgba(8,7,7,0.1) 35%,rgba(8,7,7,0.7) 70%,var(--bg) 100%)}
+.hero-side{position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--e),transparent);animation:sidePulse 4s ease-in-out infinite}
+@keyframes sidePulse{0%,100%{opacity:0.4}50%{opacity:1}}
+.hero-noise{position:absolute;inset:0;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+.hero-content{position:relative;z-index:2;padding:0 3rem 5rem;max-width:1280px;width:100%;margin:0 auto}
+.hero-tag{font-size:0.58rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--el);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem;animation:heroTagIn 1.2s 0.3s both ease}
+.hero-tag::before{content:'';width:28px;height:1px;background:var(--e)}
+@keyframes heroTagIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(4.5rem,10vw,9rem);font-weight:300;line-height:0.88;letter-spacing:-0.01em}
+.hero-h1 .word{display:inline-block;overflow:hidden}
+.hero-h1 .word span{display:inline-block;animation:wordReveal 1s cubic-bezier(0.77,0,0.175,1) both}
+.hero-h1 .word:nth-child(1) span{animation-delay:0.5s}
+.hero-h1 .word:nth-child(2) span{animation-delay:0.7s}
+.hero-h1 .word:nth-child(3) span{animation-delay:0.9s}
+@keyframes wordReveal{from{transform:translateY(110%)}to{transform:translateY(0)}}
+.hero-h1 em{font-style:italic;color:var(--el)}
+.hero-meta{display:flex;align-items:center;gap:3rem;margin-top:2.5rem;flex-wrap:wrap;animation:heroMetaIn 1s 1.3s both ease}
+@keyframes heroMetaIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.hero-desc{font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);max-width:340px;line-height:2}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-solid{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;background:var(--e);color:#fff;padding:1.1rem 2.8rem;transition:all 0.4s;font-weight:400;display:inline-block;position:relative;overflow:hidden}
+.btn-solid::before{content:'';position:absolute;inset:0;background:var(--el);transform:translateX(-101%);transition:transform 0.4s ease}
+.btn-solid:hover::before{transform:translateX(0)}
+.btn-solid span{position:relative;z-index:1}
+.btn-ghost{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;border:1px solid rgba(237,228,211,0.2);color:var(--muted);padding:1.1rem 2.8rem;transition:all 0.4s;display:inline-block;position:relative;overflow:hidden}
+.btn-ghost::before{content:'';position:absolute;inset:0;background:rgba(200,90,20,0.08);transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease}
+.btn-ghost:hover{border-color:var(--el);color:var(--el)}
+.btn-ghost:hover::before{transform:scaleX(1)}
+.btn-ghost span{position:relative;z-index:1}
+.hero-scroll{position:absolute;bottom:3rem;right:3rem;z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.8rem;font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--muted);animation:heroMetaIn 1s 1.8s both ease}
+.scroll-line{width:1px;height:48px;overflow:hidden;position:relative}
+.scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:linear-gradient(to bottom,var(--e),transparent);animation:scrollDrop 2s ease-in-out infinite}
+@keyframes scrollDrop{0%{top:-100%}100%{top:200%}}
+
+/* ── BAND ── */
+.band{background:var(--e);padding:1.1rem 3rem;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;position:relative;overflow:hidden}
+.band::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);animation:bandShine 3s ease-in-out infinite}
+@keyframes bandShine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.band-item{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.85);display:flex;align-items:center;gap:0.8rem}
+.band-dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.4)}
+
+/* ── INTRO ── */
+.intro{max-width:1280px;margin:0 auto;padding:8rem 3rem;display:grid;grid-template-columns:1fr 1.8fr;gap:8rem;align-items:start}
+.intro-label{font-size:0.58rem;letter-spacing:0.42em;text-transform:uppercase;color:var(--e);margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
+.intro-label::before{content:'';width:20px;height:1px;background:var(--e)}
+.intro-num{font-family:'Cormorant Garamond',serif;font-size:7rem;font-weight:300;color:rgba(200,90,20,0.08);line-height:1;margin-bottom:-1rem}
+.intro-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,3.8rem);font-weight:300;line-height:1.12;margin-bottom:2rem}
+.intro-h2 em{font-style:italic;color:var(--el)}
+.intro-body{font-size:0.88rem;color:var(--muted);line-height:2;font-weight:300}
+.intro-body p+p{margin-top:1.4rem}
+.intro-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:4rem}
+.istat{background:var(--bg);padding:2rem 1.8rem;position:relative;overflow:hidden;transition:background 0.4s}
+.istat::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--e);transition:width 0.5s ease}
+.istat:hover{background:rgba(200,90,20,0.04)}
+.istat:hover::after{width:100%}
+.istat-n{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--el);line-height:1;transition:transform 0.3s}
+.istat:hover .istat-n{transform:scale(1.05)}
+.istat-l{font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem}
+
+/* ── PILLARS ── */
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.pillar{background:var(--bg2);padding:3.5rem 2.8rem;position:relative;overflow:hidden;transition:background 0.5s}
+.pillar::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--e);transform:scaleX(0);transform-origin:left;transition:transform 0.6s cubic-bezier(0.77,0,0.175,1)}
+.pillar::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 120%,rgba(200,90,20,0.12),transparent 70%);opacity:0;transition:opacity 0.5s}
+.pillar:hover{background:rgba(200,90,20,0.03)}
+.pillar:hover::before{transform:scaleX(1)}
+.pillar:hover::after{opacity:1}
+.pillar-idx{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:rgba(200,90,20,0.1);line-height:1;margin-bottom:1.5rem;transition:color 0.4s,transform 0.4s}
+.pillar:hover .pillar-idx{color:rgba(200,90,20,0.25);transform:scale(1.1) translateX(4px)}
+.pillar-title{font-size:0.75rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--cr);margin-bottom:1rem;font-weight:400}
+.pillar-desc{font-size:0.82rem;color:var(--muted);line-height:1.9;font-weight:300}
+
+/* ── GALLERY ── */
+.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:260px 260px;gap:2px;background:var(--border);position:relative;overflow:hidden}
+.gimg{overflow:hidden;background:#111;position:relative}
+.gimg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 60%,rgba(200,90,20,0.15));opacity:0;transition:opacity 0.6s}
+.gimg img{width:100%;height:100%;object-fit:cover;filter:brightness(0.75) saturate(0.85);transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94)}
+.gimg:hover img{filter:brightness(0.95) saturate(1.1);transform:scale(1.06)}
+.gimg:hover::after{opacity:1}
+.gimg:first-child{grid-row:1/3}
+
+/* ── MENU ── */
+.menu-sec{padding:8rem 3rem;background:var(--bg)}
+.menu-inner{max-width:1280px;margin:0 auto}
+.menu-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:3.5rem;overflow-x:auto}
+.tab{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;padding:1rem 2rem;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:1px solid transparent;font-family:'Inter',sans-serif;font-weight:300;transition:all 0.35s;white-space:nowrap;margin-bottom:-1px;position:relative}
+.tab::after{content:'';position:absolute;bottom:-1px;left:50%;right:50%;height:1px;background:var(--e);transition:left 0.35s ease,right 0.35s ease}
+.tab:hover{color:var(--cr)}
+.tab.active{color:var(--el)}
+.tab.active::after{left:0;right:0}
+.menu-cat{display:none;animation:menuFadeIn 0.5s ease both}
+.menu-cat.active{display:block}
+@keyframes menuFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.mi{background:var(--bg);padding:2.2rem 2.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;transition:background 0.35s;cursor:default;position:relative;overflow:hidden}
+.mi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--e);transform:scaleY(0);transform-origin:bottom;transition:transform 0.45s cubic-bezier(0.77,0,0.175,1)}
+.mi::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at left center,rgba(200,90,20,0.06),transparent 60%);opacity:0;transition:opacity 0.4s}
+.mi:hover{background:rgba(200,90,20,0.02)}
+.mi:hover::before{transform:scaleY(1)}
+.mi:hover::after{opacity:1}
+.mi-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;margin-bottom:0.4rem;letter-spacing:0.02em;transition:color 0.3s}
+.mi:hover .mi-name{color:var(--el)}
+.mi-desc{font-size:0.76rem;color:var(--muted);line-height:1.75;max-width:280px;font-weight:300}
+.mi-price{font-size:0.85rem;color:var(--el);font-weight:400;white-space:nowrap;padding-top:0.3rem;letter-spacing:0.05em;transition:transform 0.3s}
+.mi:hover .mi-price{transform:scale(1.1)}
+.menu-note{margin-top:2rem;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);text-align:center}
+
+/* ── EXPERIENCE ── */
+.exp{max-width:1280px;margin:0 auto;padding:8rem 3rem;display:grid;grid-template-columns:1.2fr 1fr;gap:8rem;align-items:center}
+.exp-imgs{position:relative}
+.exp-main{width:100%;aspect-ratio:4/5;object-fit:cover;filter:brightness(0.7);transition:filter 0.6s,transform 0.6s}
+.exp-imgs:hover .exp-main{filter:brightness(0.85);transform:scale(1.01)}
+.exp-badge{position:absolute;bottom:-2rem;right:-2rem;width:130px;height:130px;border-radius:50%;background:var(--e);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1rem;animation:badgeSpin 20s linear infinite}
+@keyframes badgeSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.exp-badge-n,.exp-badge-l{animation:badgeCounter 20s linear infinite}
+@keyframes badgeCounter{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+.exp-badge-n{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:#fff;line-height:1}
+.exp-badge-l{font-size:0.48rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:0.3rem}
+.quote-mark{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;color:var(--e);line-height:0.6;margin-bottom:1.5rem;opacity:0.4}
+.quote-text{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:300;font-style:italic;line-height:1.6;color:var(--cr);margin-bottom:2rem}
+.quote-attr{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted)}
+
+/* ── CONTACT ── */
+.contact-sec{background:var(--bg2);padding:8rem 3rem}
+.contact-inner{max-width:1280px;margin:0 auto}
+.contact-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:8rem;margin-top:5rem}
+.cblock{padding:2.5rem 0;border-bottom:1px solid var(--border)}
+.cblock:first-child{padding-top:0}
+.cblock:last-child{border-bottom:none}
+.clabel{font-size:0.55rem;letter-spacing:0.42em;text-transform:uppercase;color:var(--e);margin-bottom:0.9rem}
+.cval{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--cr);line-height:1.7}
+.cval.sm{font-size:1rem}
+.hours-t{display:grid;grid-template-columns:auto 1fr;gap:0.4rem 2rem;font-size:0.82rem;color:var(--muted);font-weight:300;line-height:2}
+.hours-t .day{color:rgba(237,228,211,0.25)}
+.hours-t .closed{color:rgba(200,90,20,0.5)}
+.hours-t .open{color:var(--cr)}
+.map-placeholder{position:relative;display:flex;align-items:center;justify-content:center;padding:40px 20px;text-align:center;background:#181410;border:1px solid var(--border);aspect-ratio:1;transition:all 0.4s;overflow:hidden}
+.map-placeholder::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(200,90,20,0.08),transparent 70%);opacity:0;transition:opacity 0.5s}
+.map-placeholder:hover{border-color:rgba(200,90,20,0.3)}
+.map-placeholder:hover::before{opacity:1}
+.map-link{text-decoration:none;color:inherit;display:flex;flex-direction:column;align-items:center;width:100%;height:100%;gap:1rem;justify-content:center}
+.map-pin{width:44px;height:44px;background:var(--e);border-radius:50% 50% 50% 0;position:relative;transform:rotate(-45deg);animation:pinBounce 2.5s ease-in-out infinite;box-shadow:0 5px 20px rgba(200,90,20,0.4)}
+.map-pin::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16px;height:16px;background:var(--bg2);border-radius:50%}
+@keyframes pinBounce{0%,100%{transform:rotate(-45deg) translateY(0);box-shadow:0 5px 20px rgba(200,90,20,0.4)}50%{transform:rotate(-45deg) translateY(-10px);box-shadow:0 15px 30px rgba(200,90,20,0.3)}}
+.map-txt{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);line-height:1.8}
+.reserve-box{background:var(--e);padding:3rem;margin-top:3rem;text-align:center;position:relative;overflow:hidden}
+.reserve-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(255,255,255,0.06),transparent);animation:reserveShine 5s linear infinite}
+@keyframes reserveShine{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.reserve-h{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;font-style:italic;color:#fff;margin-bottom:0.5rem;position:relative}
+.reserve-s{font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:2rem;position:relative}
+.reserve-btn{display:inline-block;border:1px solid rgba(255,255,255,0.5);color:#fff;font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;padding:1rem 2.5rem;transition:all 0.35s;position:relative}
+.reserve-btn:hover{background:#fff;color:var(--e)}
+
+/* ── SOCIALS ── */
+.social-bar{background:var(--bg);border-top:1px solid var(--border);padding:5rem 3rem}
+.social-inner{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:2.5rem}
+.social-label{font-size:0.58rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--muted)}
+.social-links{display:flex;gap:3rem;align-items:center;flex-wrap:wrap;justify-content:center}
+.social-link{display:flex;flex-direction:column;align-items:center;gap:0.8rem;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+.social-link:hover{transform:translateY(-8px)}
+.social-icon{width:56px;height:56px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.4s;background:rgba(255,255,255,0.02);position:relative;overflow:hidden}
+.social-icon::before{content:'';position:absolute;inset:0;background:var(--e);border-radius:50%;transform:scale(0);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+.social-link:hover .social-icon{border-color:var(--e)}
+.social-link:hover .social-icon::before{transform:scale(1)}
+.social-icon svg{width:20px;height:20px;fill:var(--muted);transition:fill 0.3s;position:relative;z-index:1}
+.social-link:hover .social-icon svg{fill:#fff}
+.social-name{font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);transition:color 0.3s}
+.social-link:hover .social-name{color:var(--el)}
+
+/* ── FOOTER ── */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:4rem 3rem}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--el);letter-spacing:0.1em;transition:letter-spacing 0.4s}
+.footer-brand:hover{letter-spacing:0.18em}
+.footer-links{display:flex;gap:2rem}
+.footer-links a{font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);transition:color 0.3s;position:relative}
+.footer-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--e);transition:width 0.3s}
+.footer-links a:hover{color:var(--el)}
+.footer-links a:hover::after{width:100%}
+.footer-copy{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,228,211,0.18)}
+
+/* ── SCROLL REVEALS ── */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 1s cubic-bezier(0.25,0.46,0.45,0.94),transform 1s cubic-bezier(0.25,0.46,0.45,0.94)}
+.reveal.visible{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-36px);transition:opacity 1s cubic-bezier(0.25,0.46,0.45,0.94),transform 1s cubic-bezier(0.25,0.46,0.45,0.94)}
+.reveal-left.visible{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(36px);transition:opacity 1s cubic-bezier(0.25,0.46,0.45,0.94),transform 1s cubic-bezier(0.25,0.46,0.45,0.94)}
+.reveal-right.visible{opacity:1;transform:none}
+.reveal-scale{opacity:0;transform:scale(0.94);transition:opacity 1s ease,transform 1s ease}
+.reveal-scale.visible{opacity:1;transform:none}
+
+/* ── STAGGER CHILDREN ── */
+.stagger-children>*{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+.stagger-children.visible>*:nth-child(1){opacity:1;transform:none;transition-delay:0s}
+.stagger-children.visible>*:nth-child(2){opacity:1;transform:none;transition-delay:0.1s}
+.stagger-children.visible>*:nth-child(3){opacity:1;transform:none;transition-delay:0.2s}
+.stagger-children.visible>*:nth-child(4){opacity:1;transform:none;transition-delay:0.3s}
+.stagger-children.visible>*:nth-child(5){opacity:1;transform:none;transition-delay:0.4s}
+.stagger-children.visible>*:nth-child(6){opacity:1;transform:none;transition-delay:0.5s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+.nav-links{display:none}
+.intro,.exp,.contact-grid{grid-template-columns:1fr;gap:3rem}
+.pillars-grid{grid-template-columns:1fr}
+.gallery{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+.gimg:first-child{grid-row:auto;grid-column:1/3}
+.menu-grid{grid-template-columns:1fr}
+.hero-content{padding:0 1.5rem 4rem}
+.band{gap:2rem}
+.cursor-dot,.cursor-ring{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-brand">The Yard On 5th</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
+
+<!-- EMBER PARTICLES -->
+<div id="particles"></div>
+
+<nav id="nav">
+  <div class="nav-wrap">
+    <div class="brand">
+      <div class="brand-name">The Yard On 5th</div>
+      <div class="brand-loc">Lynchburg, Virginia</div>
+    </div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+      <a href="tel:4348497936" class="nav-res"><span>Reservations</span></a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg" id="herobg"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-side"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Downtown Lynchburg · Est. 2024</div>
+    <h1 class="hero-h1">
+      <span class="word"><span>The</span></span><br>
+      <span class="word"><span>Yard</span></span><br>
+      <span class="word"><span><em>On 5th</em></span></span>
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-desc">Southern smokehouse soul meets downtown industrial nightlife.</div>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-solid"><span>Explore Menu</span></a>
+        <a href="#contact" class="btn-ghost"><span>Find Us</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<div class="band">
+  <div class="band-item">House-Smoked Daily</div>
+  <div class="band-dot"></div>
+  <div class="band-item">Craft Cocktails</div>
+  <div class="band-dot"></div>
+  <div class="band-item">Live Music Nights</div>
+  <div class="band-dot"></div>
+  <div class="band-item">Tue – Sat Open</div>
+  <div class="band-dot"></div>
+  <div class="band-item">Downtown Lynchburg</div>
+</div>
+
+<section id="about" style="background:var(--bg)">
+  <div class="intro">
+    <div class="reveal-left">
+      <div class="intro-label">Our Story</div>
+      <div class="intro-num">01</div>
+      <h2 class="intro-h2">Where smoke<br>meets <em>soul</em></h2>
+      <div class="intro-stats stagger-children">
+        <div class="istat"><div class="istat-n">2024</div><div class="istat-l">Est. Lynchburg</div></div>
+        <div class="istat"><div class="istat-n">100%</div><div class="istat-l">Hardwood fire</div></div>
+        <div class="istat"><div class="istat-n">5</div><div class="istat-l">Days a week</div></div>
+        <div class="istat"><div class="istat-n">5th</div><div class="istat-l">Street, LYH</div></div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="intro-label">Lynchburg's Smokehouse</div>
+      <div class="intro-body">
+        <p>The Yard On 5th was born from a simple belief — that great food and great nights belong together. We built our pit in the heart of downtown Lynchburg in 2024 and haven't looked back.</p>
+        <p>Every cut of meat is slow-smoked over hardwood. Every cocktail is crafted with intention. Every night is designed to leave a mark.</p>
+        <p>This is not a chain. This is not a formula. This is The Yard — and it's yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2);padding:0 3rem 8rem">
+  <div style="max-width:1280px;margin:0 auto">
+    <div class="pillars-grid reveal">
+      <div class="pillar">
+        <div class="pillar-idx">01</div>
+        <div class="pillar-title">Live Music Nights</div>
+        <div class="pillar-desc">Local and touring artists take the stage regularly. The kind of atmosphere you can't manufacture — raw, warm, and alive.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-idx">02</div>
+        <div class="pillar-title">Pit-Smoked BBQ</div>
+        <div class="pillar-desc">We don't rush the fire. Every brisket, rack, and shoulder earns its place on the plate through hours of patient hardwood smoke.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-idx">03</div>
+        <div class="pillar-title">Craft Cocktails</div>
+        <div class="pillar-desc">Bourbon-forward, seasonally driven, and built by hand. Our bar team treats every drink like the last course of a great meal.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gallery">
+  <div class="gimg"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800" alt="Smoked brisket"/></div>
+  <div class="gimg"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600" alt="Craft cocktail"/></div>
+  <div class="gimg"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600" alt="Smoked ribs"/></div>
+  <div class="gimg"><img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?q=80&w=600" alt="BBQ plate"/></div>
+  <div class="gimg"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600" alt="Restaurant atmosphere"/></div>
+</div>
+
+<section id="menu" class="menu-sec">
+  <div class="menu-inner">
+    <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-bottom:4rem">
+      <div>
+        <div class="intro-label" style="margin-bottom:1rem">Crafted Over Fire</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,3.5rem);font-weight:300;line-height:1.1">The <em style="font-style:italic;color:var(--el)">Menu</em></h2>
+      </div>
+      <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:2">Smoke · Fire<br>Bourbon · Soul</div>
+    </div>
+    <div class="menu-tabs reveal">
+      <button class="tab active" onclick="showTab('s',this)">Starters</button>
+      <button class="tab" onclick="showTab('sm',this)">Smokehouse</button>
+      <button class="tab" onclick="showTab('b',this)">Burgers</button>
+      <button class="tab" onclick="showTab('br',this)">Brunch</button>
+      <button class="tab" onclick="showTab('c',this)">Cocktails</button>
+      <button class="tab" onclick="showTab('nc',this)">Non-Alcoholic</button>
+    </div>
+    <div id="s" class="menu-cat active">
+      <div class="menu-grid stagger-children visible">
+        <div class="mi"><div><div class="mi-name">Smoked Wings</div><div class="mi-desc">Slow-smoked jumbo wings with ember glaze and house-made ranch.</div></div><div class="mi-price">$14</div></div>
+        <div class="mi"><div><div class="mi-name">Fried Pickles</div><div class="mi-desc">Crispy battered dills with chipotle remoulade.</div></div><div class="mi-price">$9</div></div>
+        <div class="mi"><div><div class="mi-name">Burnt End Bites</div><div class="mi-desc">Caramelized brisket ends, bourbon glaze, jalapeño.</div></div><div class="mi-price">$16</div></div>
+        <div class="mi"><div><div class="mi-name">Smoked Queso</div><div class="mi-desc">Velvety smoked three-cheese dip, house tortilla chips.</div></div><div class="mi-price">$11</div></div>
+        <div class="mi"><div><div class="mi-name">Pimento Cheese Dip</div><div class="mi-desc">Southern classic with house-smoked peppers and crostini.</div></div><div class="mi-price">$10</div></div>
+        <div class="mi"><div><div class="mi-name">BBQ Shrimp Skewers</div><div class="mi-desc">Grilled Gulf shrimp, ember butter, smoked paprika.</div></div><div class="mi-price">$15</div></div>
+      </div>
+    </div>
+    <div id="sm" class="menu-cat">
+      <div class="menu-grid">
+        <div class="mi"><div><div class="mi-name">Brisket Plate</div><div class="mi-desc">Texas-style slow-smoked brisket, cornbread, slaw, pickles.</div></div><div class="mi-price">$22</div></div>
+        <div class="mi"><div><div class="mi-name">St. Louis Ribs — Full</div><div class="mi-desc">Hickory-smoked dry rub rack with two sides.</div></div><div class="mi-price">$34</div></div>
+        <div class="mi"><div><div class="mi-name">Pulled Pork Sandwich</div><div class="mi-desc">House-smoked shoulder, bourbon BBQ, brioche bun.</div></div><div class="mi-price">$16</div></div>
+        <div class="mi"><div><div class="mi-name">Smoked Half Chicken</div><div class="mi-desc">Herb-brined, pit-smoked, ember butter, roasted garlic.</div></div><div class="mi-price">$19</div></div>
+        <div class="mi"><div><div class="mi-name">The Smokehouse Sampler</div><div class="mi-desc">Brisket, pulled pork, ribs, two sides. Feeds two.</div></div><div class="mi-price">$48</div></div>
+        <div class="mi"><div><div class="mi-name">Smoked Sausage Link</div><div class="mi-desc">House-made jalapeño cheddar link, mustard, pickled onion.</div></div><div class="mi-price">$13</div></div>
+      </div>
+    </div>
+    <div id="b" class="menu-cat">
+      <div class="menu-grid">
+        <div class="mi"><div><div class="mi-name">The Yard Burger</div><div class="mi-desc">Double smash patty, smoked cheddar, ember sauce, brioche.</div></div><div class="mi-price">$18</div></div>
+        <div class="mi"><div><div class="mi-name">Smokehouse Stack</div><div class="mi-desc">Beef patty, brisket, fried onion, house BBQ, cheddar.</div></div><div class="mi-price">$21</div></div>
+        <div class="mi"><div><div class="mi-name">Mushroom & Swiss</div><div class="mi-desc">Smash patty, sautéed wild mushrooms, gruyère, aioli.</div></div><div class="mi-price">$17</div></div>
+        <div class="mi"><div><div class="mi-name">Crispy Chicken Sandwich</div><div class="mi-desc">Buttermilk fried thigh, slaw, pickles, smoked honey.</div></div><div class="mi-price">$16</div></div>
+      </div>
+    </div>
+    <div id="br" class="menu-cat">
+      <div class="menu-grid">
+        <div class="mi"><div><div class="mi-name">Brisket Hash</div><div class="mi-desc">Smoked brisket, crispy potatoes, peppers, two eggs.</div></div><div class="mi-price">$17</div></div>
+        <div class="mi"><div><div class="mi-name">Smokehouse Benedict</div><div class="mi-desc">Pulled pork, poached eggs, chipotle hollandaise, biscuit.</div></div><div class="mi-price">$16</div></div>
+        <div class="mi"><div><div class="mi-name">Yard French Toast</div><div class="mi-desc">Thick-cut brioche, bourbon maple, candied bacon.</div></div><div class="mi-price">$14</div></div>
+        <div class="mi"><div><div class="mi-name">Smoked Salmon Bagel</div><div class="mi-desc">House-smoked salmon, cream cheese, capers, red onion.</div></div><div class="mi-price">$15</div></div>
+      </div>
+    </div>
+    <div id="c" class="menu-cat">
+      <div class="menu-grid">
+        <div class="mi"><div><div class="mi-name">Smoked Old Fashioned</div><div class="mi-desc">Woodford Reserve, smoked bitters, demerara, charred orange.</div></div><div class="mi-price">$14</div></div>
+        <div class="mi"><div><div class="mi-name">Ember Mule</div><div class="mi-desc">Spiced rum, ginger beer, chili-lime, smoked salt rim.</div></div><div class="mi-price">$12</div></div>
+        <div class="mi"><div><div class="mi-name">The Yard Sour</div><div class="mi-desc">High West rye, lemon, honey syrup, smoked rosemary.</div></div><div class="mi-price">$13</div></div>
+        <div class="mi"><div><div class="mi-name">Lynchburg Lemonade</div><div class="mi-desc">Jack Daniel's, triple sec, fresh lemon, club soda.</div></div><div class="mi-price">$11</div></div>
+        <div class="mi"><div><div class="mi-name">Peach Bourbon Smash</div><div class="mi-desc">Bourbon, fresh peach, mint, lemon, ginger beer.</div></div><div class="mi-price">$13</div></div>
+        <div class="mi"><div><div class="mi-name">Negroni Fumé</div><div class="mi-desc">Gin, Campari, smoked sweet vermouth, orange peel.</div></div><div class="mi-price">$14</div></div>
+      </div>
+    </div>
+    <div id="nc" class="menu-cat">
+      <div class="menu-grid">
+        <div class="mi"><div><div class="mi-name">Smoked Lemonade</div><div class="mi-desc">House-smoked lemon syrup, fresh lemon, sparkling water.</div></div><div class="mi-price">$6</div></div>
+        <div class="mi"><div><div class="mi-name">Ember Arnold Palmer</div><div class="mi-desc">Smoked peach tea, house lemonade, rosemary sprig.</div></div><div class="mi-price">$6</div></div>
+        <div class="mi"><div><div class="mi-name">Virginia Sweet Tea</div><div class="mi-desc">Cold-brew black tea, cane sugar, lemon wedge.</div></div><div class="mi-price">$4</div></div>
+        <div class="mi"><div><div class="mi-name">Spiced Cider</div><div class="mi-desc">Warm pressed apple cider, cinnamon, clove, orange.</div></div><div class="mi-price">$5</div></div>
+      </div>
+    </div>
+    <div class="menu-note reveal">Menu items subject to availability · Consuming undercooked meats may increase risk of foodborne illness</div>
+  </div>
+</section>
+
+<section id="experience" style="background:var(--bg2)">
+  <div class="exp">
+    <div class="exp-imgs reveal-left">
+      <img class="exp-main" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=800" alt="Restaurant atmosphere"/>
+      <div class="exp-badge">
+        <div class="exp-badge-n">★★★★★</div>
+        <div class="exp-badge-l">Guest Rated</div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="intro-label" style="margin-bottom:2rem">The Experience</div>
+      <div class="quote-mark">"</div>
+      <div class="quote-text">The best brisket I've had outside of Texas — and the cocktails make it impossible to leave early.</div>
+      <div class="quote-attr">— Google Review, Lynchburg VA</div>
+      <div style="margin-top:3rem;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border)">
+        <div style="background:var(--bg2);padding:2rem 1.5rem"><div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--el)">4.8</div><div style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-top:0.4rem">Google Rating</div></div>
+        <div style="background:var(--bg2);padding:2rem 1.5rem"><div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--el)">2024</div><div style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-top:0.4rem">Est. Lynchburg</div></div>
+      </div>
+      <div style="margin-top:2.5rem">
+        <a href="#menu" class="btn-solid"><span>View Full Menu</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-sec">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="intro-label">Come See Us</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,3.5rem);font-weight:300;line-height:1.1">Find <em style="font-style:italic;color:var(--el)">The Yard</em></h2>
+    </div>
+    <div class="contact-grid reveal">
+      <div>
+        <div class="cblock">
+          <div class="clabel">Address</div>
+          <div class="cval">
+            <a href="https://www.google.com/maps/place/801+Fifth+St,+Lynchburg,+VA+24504/@37.4151248,-79.153811,17z" target="_blank" rel="noopener noreferrer" style="color:inherit;transition:color 0.3s" onmouseover="this.style.color='var(--el)'" onmouseout="this.style.color='inherit'">
+              801 5th Street<br>Lynchburg, Virginia 24504
+            </a>
+          </div>
+        </div>
+        <div class="cblock">
+          <div class="clabel">Reservations & Inquiries</div>
+          <div class="cval"><a href="tel:4348497936" style="color:inherit;transition:color 0.3s" onmouseover="this.style.color='var(--el)'" onmouseout="this.style.color='inherit'">(434) 849-7936</a></div>
+        </div>
+        <div class="cblock">
+          <div class="clabel">Hours</div>
+          <div class="hours-t">
+            <span class="day">Sunday</span><span class="closed">Closed</span>
+            <span class="day">Monday</span><span class="closed">Closed</span>
+            <span class="day">Tuesday</span><span class="open">9:00 AM – 7:00 PM</span>
+            <span class="day">Wednesday</span><span class="open">12:00 PM – 7:00 PM</span>
+            <span class="day">Thursday</span><span class="open">12:00 PM – 9:00 PM</span>
+            <span class="day">Friday</span><span class="open">12:00 PM – 10:00 PM</span>
+            <span class="day">Saturday</span><span class="open">12:00 PM – 10:00 PM</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="map-placeholder">
+          <a href="https://www.google.com/maps/place/801+Fifth+St,+Lynchburg,+VA+24504/@37.4151248,-79.153811,17z" target="_blank" rel="noopener noreferrer" class="map-link">
+            <div class="map-pin"></div>
+            <div class="map-txt">801 5th Street<br>Lynchburg, VA 24504<br><br><span style="color:var(--el);font-size:0.6rem;letter-spacing:0.2em">Open in Maps →</span></div>
+          </a>
+        </div>
+        <div class="reserve-box">
+          <div class="reserve-h">Reserve a Table</div>
+          <div class="reserve-s">Call us to book your experience</div>
+          <a href="tel:4348497936" class="reserve-btn">(434) 849-7936</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="social-bar">
+  <div class="social-inner">
+    <div class="social-label reveal">Find Us Online</div>
+    <div class="social-links reveal">
+      <a href="https://www.instagram.com/theyardon5thstreet/?hl=en" target="_blank" rel="noopener noreferrer" class="social-link">
+        <div class="social-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+        <span class="social-name">Instagram</span>
+      </a>
+      <a href="https://www.facebook.com/p/The-Yard-on-5th-Street-61572329626308/" target="_blank" rel="noopener noreferrer" class="social-link">
+        <div class="social-icon">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+        <span class="social-name">Facebook</span>
+      </a>
+      <a href="https://www.yelp.com/biz/the-yard-on-5th-street-lynchburg" target="_blank" rel="noopener noreferrer" class="social-link">
+        <div class="social-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.16 12.594l-4.995 1.433c-.96.276-1.74-.8-1.176-1.63l2.905-4.308a1.072 1.072 0 0 1 1.596-.206 9.908 9.908 0 0 1 2.364 3.522 1.072 1.072 0 0 1-.694 1.189zm-6.16 6.406l1.432 4.994a1.072 1.072 0 0 1-.74 1.337 9.908 9.908 0 0 1-4.243.12 1.072 1.072 0 0 1-.868-1.228l.79-5.141c.152-.989 1.454-1.239 1.955-.378l.002.003zm-7.347.21L2.6 21.87a1.072 1.072 0 0 1-1.35-.504 9.908 9.908 0 0 1-.878-4.195 1.072 1.072 0 0 1 1.036-1.086l5.187-.215c.995-.041 1.49 1.199.793 1.894l-.579.44zm-.575-6.583L.896 11.608a1.072 1.072 0 0 1-.44-1.49 9.908 9.908 0 0 1 2.931-3.196 1.072 1.072 0 0 1 1.554.42l2.312 4.588c.445.882-.411 1.87-1.35 1.553l-.659-.226zm5.684-6.88L11.27.574a1.072 1.072 0 0 1 1.346-.492 9.908 9.908 0 0 1 1.91 1.018c.37.248.516.72.35 1.133l-1.97 4.764c-.38.918-1.717.787-1.912-.18l-.05-.27z"/></svg>
+        </div>
+        <span class="social-name">Yelp</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="#home" class="footer-brand">The Yard On 5th</a>
+      <div style="font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--muted);margin-top:0.4rem">Est. 2024 · Lynchburg, Virginia</div>
+    </div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 The Yard On 5th · All Rights Reserved</div>
+  </div>
+</footer>
+
+<script>
+// LOADER
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loader').classList.add('hidden'),1800);
+});
+
+// HERO BG
+setTimeout(()=>document.getElementById('herobg').classList.add('loaded'),100);
+
+// NAV SCROLL
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// CUSTOM CURSOR
+const dot=document.getElementById('cursorDot');
+const ring=document.getElementById('cursorRing');
+document.addEventListener('mousemove',e=>{
+  dot.style.left=e.clientX+'px';
+  dot.style.top=e.clientY+'px';
+  ring.style.left=e.clientX+'px';
+  ring.style.top=e.clientY+'px';
+});
+
+// EMBER PARTICLES
+(function(){
+  const container=document.getElementById('particles');
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const size=Math.random()*4+2;
+    p.style.cssText=`
+      width:${size}px;height:${size}px;
+      left:${Math.random()*100}%;
+      bottom:0;
+      --drift:${(Math.random()-0.5)*120}px;
+      animation-duration:${Math.random()*12+8}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// MENU TABS
+function showTab(id,el){
+  document.querySelectorAll('.menu-cat').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+
+// INTERSECTION OBSERVER
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+    }
+  });
+},{threshold:0.08});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale,.stagger-children').forEach(el=>obs.observe(el));
+
+// PARALLAX HERO
+window.addEventListener('scroll',()=>{
+  const hero=document.getElementById('herobg');
+  if(hero){
+    hero.style.transform=`scale(1) translateY(${window.scrollY*0.25}px)`;
+  }
+});
+</script>
+</body>
+</html>
